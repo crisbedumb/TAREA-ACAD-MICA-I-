@@ -1,0 +1,19 @@
+[
+  {
+    "headers": {
+      "user-agent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; es-MX) WindowsPowerShell/5.1.26100.9168",
+      "content-type": "application/json",
+      "host": "localhost:5678",
+      "content-length": "49",
+      "connection": "Keep-Alive"
+    },
+    "params": {},
+    "query": {},
+    "body": {
+      "nombre": "Liliana",
+      "correo": "liliana@gmail.com"
+    },
+    "webhookUrl": "http://localhost:5678/webhook-test/registro",
+    "executionMode": "test"
+  }
+]
