@@ -1,0 +1,163 @@
+{
+  "name": "Automatización de Registro y Notificación",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "52e8ac5a-66e4-4efe-8d0f-24b28f80de90",
+              "name": "nombre",
+              "value": "Sarada",
+              "type": "string"
+            },
+            {
+              "id": "d0c827ff-dbfc-4aae-b0dc-5905c3559f5f",
+              "name": "destinatarios",
+              "value": "lilianayaquelinemartinez@gmail.com, peliblancosatorugojo@gmail.com",
+              "type": "string"
+            },
+            {
+              "id": "c337950f-bf37-4dc4-b94f-e3551273ce1c",
+              "name": "mensaje",
+              "value": "Hola, espero que esté bien después de la desvelada",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "fcb62974-51f9-42da-9cea-64cdfbfafc6b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c24f2a61-79f9-4898-8337-d5ed5b72f377",
+              "leftValue": "={{ $json.destinatarios }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        0
+      ],
+      "id": "0f1f5611-143b-4b49-b565-4864cdd5be1d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.destinatarios }}",
+        "subject": "Hola, nuevo registro recibido",
+        "emailType": "text",
+        "message": "=Hola {{ $json.nombre }},\n\nSe ha recibido correctamente tu registro.\n\nDestinatarios registrados: {{ $json.destinatarios }}\n\n{{ $json.mensaje }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        -96
+      ],
+      "id": "78c24cab-868e-4626-bfb3-d0698b91cb65",
+      "name": "Send a message",
+      "webhookId": "f67083f9-d953-468a-8de2-027c3c5f386a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "3A4nICcn6Qj1g5d4",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "registro",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "8181eeda-ee7f-4e3e-b104-bd03fb34fec6",
+      "name": "Webhook",
+      "webhookId": "49e6db9b-a0be-4574-ae6a-8a1459d71a68"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9538fa9e-5e6d-47a4-be4a-b5fba4e5fcc7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "37a4a0da038537ba65e1bc29d95b5f30f91f723387112be844b4e347298343c2"
+  },
+  "nodeGroups": [],
+  "id": "9YcTNuAHEduHGekb",
+  "tags": []
+}
