@@ -87,38 +87,37 @@ Credencial "Gmail account" lista para usar
 ---
 
 ## 3. Workflow n8n
-
+ 
 Se desarrollaron dos versiones del flujo:
-
+ 
 ### Versión 1
-
+ 
 ```text
-⏰ Schedule Trigger (21:00)
-        ↓
-📝 Edit Fields (genera el campo "Reporte")
-        ↓
-🔎 If (¿Reporte no está vacío?)
-        ↓
-📧 Send a message (Gmail)
-```
-
-- **Schedule Trigger**: dispara el flujo automáticamente todos los días a las 9:00 p. m.
-- **Edit Fields**: arma el texto del reporte usando la fecha y hora que entrega el trigger (`$json["Readable date"]`, `$json["Readable time"]`).
-- **If**: valida que el campo `Reporte` no esté vacío antes de continuar.
-- **Send a message (Gmail)**: envía el reporte en formato HTML a la lista de destinatarios, usando la credencial Gmail OAuth2.
-
-### Versión 2
-
-```text
-🌐 Webhook
+ Webhook
         ↓
    Procesamiento / Formato
         ↓
-📧 Send a message (Gmail)
+ Send a message (Gmail)
 ```
-
-- **Webhook**: reemplaza el disparador programado por un trigger activado por una petición externa (formulario o llamada HTTP).
-- El resto del flujo reutiliza la misma lógica de formateo y envío por Gmail que la versión 1.
+ 
+- **Webhook**: dispara el flujo mediante una petición externa (formulario o llamada HTTP).
+- El resto del flujo formatea los datos recibidos y los envía por Gmail.
+### Versión 2
+ 
+```text
+ Schedule Trigger (21:00)
+        ↓
+ Edit Fields (genera el campo "Reporte")
+        ↓
+ If (¿Reporte no está vacío?)
+        ↓
+ Send a message (Gmail)
+```
+ 
+- **Schedule Trigger**: se configura para que el flujo se ejecute automáticamente todos los días a una hora determinada (9:00 p. m.), disparando así el envío del reporte de forma diaria sin intervención manual.
+- **Edit Fields**: arma el texto del reporte usando la fecha y hora que entrega el trigger (`$json["Readable date"]`, `$json["Readable time"]`).
+- **If**: valida que el campo `Reporte` no esté vacío antes de continuar.
+- **Send a message (Gmail)**: envía el reporte en formato HTML a la lista de destinatarios, usando la credencial Gmail OAuth2.
 
 ---
 
@@ -134,6 +133,14 @@ Se ejecutó el workflow manualmente antes de activarlo, revisando en cada nodo:
 ---
 
 ## 5. Capturas de pantalla
+**Docker corriendo:**
+![docker](Docs/img/docker.png)
+**Workflow:**
+![workflow](Docs/img/workflow.png)
+**Ejecución exitosa:**
+![ejecucion](Docs/img/ejecucion.png)
+**Correo recibido:**
+![correo](Docs/img/correo.png)
 
 ---
 
@@ -142,19 +149,23 @@ Se ejecutó el workflow manualmente antes de activarlo, revisando en cada nodo:
 | # | Error encontrado | Causa | Solución |
 |---|---|---|---|
 | 1 | Al configurar `N8N_BASIC_AUTH_ACTIVE` en el `docker-compose.yml`, n8n no pedía usuario/contraseña como se esperaba, sino una pantalla de "Configurar la cuenta del propietario" | En versiones recientes de n8n, las variables `N8N_BASIC_AUTH_*` quedaron obsoletas y fueron reemplazadas por la creación de una cuenta de owner desde la interfaz | Se eliminaron esas variables del `docker-compose.yml` y se completó el registro directamente desde la pantalla de bienvenida de n8n |
-| 2 | *(completar con un tercer error del taller si surge, ej. sintaxis JSON, credenciales mal configuradas, etc.)* | | |
+| 2 | GitHub mostró el aviso "Your protected branch rules for your branch won't be enforced on this private repository until you move to a GitHub Team or Enterprise organization account" al configurar la protección de la rama `main` | Las reglas de protección de rama en repositorios privados no se aplican en el plan gratuito de GitHub | Se cambió el repositorio a público, en vez de aplicar el Student Developer Pack, y así la protección de rama sí se hizo efectiva sin costo. |
+| 3 | La hora generada por el **Schedule Trigger** no coincidía con la hora real de Perú | La zona horaria del sistema/contenedor no estaba configurada correctamente y la hora de la PC estaba desactualizada | Se ingresó en modo administrador desde la consola y se ajustó la hora del sistema, configurando la zona horaria a la de Perú (`GENERIC_TIMEZONE=America/Lima` en el `docker-compose.yml`). Tras el ajuste, el resto del workflow funcionó correctamente |
 
 ---
 
 ## 7. Estructura del repositorio
 
 ```
-├── docker-compose.yml
-├── .gitignore
-├── docs/
+├── Docs/
 │   └── instalacion.md
 ├── workflows/
-│   ├── workflow_v1.json
-│   └── workflow_v2.json
-└── README.md
+│   ├── Automatizacion_de_Resgistro_y_notificaciones.json 
+    ├── Cambio_ScheduleTrigger.json
+    ├── nueva_versiondeautomatizacion.json
+    ├── workflow_01_trigger.json
+│   └── workflow_02_procesamiento.json
+├── .gitignore
+├── README.md
+└── docker-compose.yml
 ```
