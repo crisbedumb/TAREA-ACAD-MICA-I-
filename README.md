@@ -133,7 +133,7 @@ Se ejecutó el workflow manualmente antes de activarlo, revisando en cada nodo:
 ---
 
 ## 5. Capturas de pantalla
-
+Workflow:
 ![workflow](Docs/img/workflow.png)
 
 ---
