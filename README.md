@@ -93,11 +93,11 @@ Se desarrollaron dos versiones del flujo:
 ### Versión 1
  
 ```text
-🌐 Webhook
+ Webhook
         ↓
    Procesamiento / Formato
         ↓
-📧 Send a message (Gmail)
+ Send a message (Gmail)
 ```
  
 - **Webhook**: dispara el flujo mediante una petición externa (formulario o llamada HTTP).
@@ -105,13 +105,13 @@ Se desarrollaron dos versiones del flujo:
 ### Versión 2
  
 ```text
-⏰ Schedule Trigger (21:00)
+ Schedule Trigger (21:00)
         ↓
-📝 Edit Fields (genera el campo "Reporte")
+ Edit Fields (genera el campo "Reporte")
         ↓
-🔎 If (¿Reporte no está vacío?)
+ If (¿Reporte no está vacío?)
         ↓
-📧 Send a message (Gmail)
+ Send a message (Gmail)
 ```
  
 - **Schedule Trigger**: se configura para que el flujo se ejecute automáticamente todos los días a una hora determinada (9:00 p. m.), disparando así el envío del reporte de forma diaria sin intervención manual.
@@ -133,8 +133,14 @@ Se ejecutó el workflow manualmente antes de activarlo, revisando en cada nodo:
 ---
 
 ## 5. Capturas de pantalla
-Workflow:
+**Docker corriendo:**
+![docker](Docs/img/docker.png)
+**Workflow:**
 ![workflow](Docs/img/workflow.png)
+**Ejecución exitosa:**
+![ejecucion](Docs/img/ejecucion.png)
+**Correo recibido:**
+![correo](Docs/img/correo.png)
 
 ---
 
