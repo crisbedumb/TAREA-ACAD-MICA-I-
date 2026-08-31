@@ -1,0 +1,153 @@
+{
+  "name": "Automatización de Registro y Notificación",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "52e8ac5a-66e4-4efe-8d0f-24b28f80de90",
+              "name": "Reporte",
+              "value": "={{ \n\"REPORTE DIARIO DE ACTIVIDADES\\n\\n\" +\n\"Fecha: \" + $json[\"Readable date\"] + \"\\n\" +\n\"Hora de generación: \" + $json[\"Readable time\"] + \"\\n\" +\n\"Estado: PROCESADO CORRECTAMENTE\\n\\n\" +\n\"TAREAS PROGRAMADAS\\n\\n\" +\n\"1. Verificación de información pendiente\\n\" +\n\"2. Actualización de registros\\n\" +\n\"3. Validación de datos\\n\\n\" +\n\"Se detectaron 3 tareas pendientes.\\n\\n\" +\n\"Se solicita revisar las actividades indicadas y completar las acciones que se encuentren pendientes dentro del plazo establecido.\\n\\n\" +\n\"Saludos cordiales,\\n\" +\n\"Sistema de Automatización\"\n}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        672,
+        0
+      ],
+      "id": "fcb62974-51f9-42da-9cea-64cdfbfafc6b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c24f2a61-79f9-4898-8337-d5ed5b72f377",
+              "leftValue": "={{ $json.Reporte }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        896,
+        0
+      ],
+      "id": "0f1f5611-143b-4b49-b565-4864cdd5be1d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "=lilianayaquelinemartinez@gmail.com,gomezsarada749@gmail.com,peliblancosatorugojo@gmail.com,silvazegarracristhian19@gmail.com, belenbp143@gmail.com,920406450laob@gmail.com",
+        "subject": "Reporte automático n8n",
+        "message": "={{ \n'<div style=\"font-family:Arial,sans-serif;max-width:650px;margin:auto;background:#f4f6f8;padding:25px;\">' +\n'<div style=\"background:#1f4e78;color:white;padding:22px;text-align:center;border-radius:8px 8px 0 0;\">' +\n'<h1 style=\"margin:0;font-size:24px;\">REPORTE DIARIO DE ACTIVIDADES</h1>' +\n'<p style=\"margin:8px 0 0;font-size:14px;\">Informe automático de actividades</p>' +\n'</div>' +\n\n'<div style=\"background:white;padding:25px;border:1px solid #ddd;border-top:0;\">' +\n\n'<table style=\"width:100%;border-collapse:collapse;margin-bottom:25px;\">' +\n'<tr><td style=\"padding:12px;background:#eef3f8;font-weight:bold;width:40%;\">Fecha</td><td style=\"padding:12px;border-bottom:1px solid #ddd;\">' + $json[\"Readable date\"] + '</td></tr>' +\n'<tr><td style=\"padding:12px;background:#eef3f8;font-weight:bold;\">Hora de generación</td><td style=\"padding:12px;border-bottom:1px solid #ddd;\">' + $json[\"Readable time\"] + '</td></tr>' +\n'<tr><td style=\"padding:12px;background:#eef3f8;font-weight:bold;\">Estado</td><td style=\"padding:12px;color:#16803c;font-weight:bold;\">✓ PROCESADO CORRECTAMENTE</td></tr>' +\n'</table>' +\n\n'<h2 style=\"color:#1f4e78;font-size:19px;border-bottom:2px solid #1f4e78;padding-bottom:8px;\">Tareas programadas</h2>' +\n\n'<div style=\"background:#f8fafc;border-left:4px solid #1f4e78;padding:15px;margin:15px 0;\">' +\n'<p style=\"margin:8px 0;\">1. Verificación de información pendiente</p>' +\n'<p style=\"margin:8px 0;\">2. Actualización de registros</p>' +\n'<p style=\"margin:8px 0;\">3. Validación de datos</p>' +\n'</div>' +\n\n'<div style=\"background:#fff4d6;border:1px solid #f0cf70;padding:15px;border-radius:6px;margin-top:20px;\">' +\n'<strong>⚠ Tareas pendientes:</strong> Se detectaron 3 tareas pendientes que requieren revisión.' +\n'</div>' +\n\n'<p style=\"line-height:1.6;margin-top:25px;\">Se solicita revisar las actividades indicadas y completar las acciones que se encuentren pendientes dentro del plazo establecido.</p>' +\n\n'<p style=\"margin-top:30px;\">Saludos cordiales,<br><strong>Sistema de Automatización</strong></p>' +\n\n'</div>' +\n\n'<div style=\"text-align:center;color:#888;font-size:12px;padding:15px;\">Mensaje generado automáticamente por n8n</div>' +\n\n'</div>'\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        -96
+      ],
+      "id": "78c24cab-868e-4626-bfb3-d0698b91cb65",
+      "name": "Send a message",
+      "webhookId": "f67083f9-d953-468a-8de2-027c3c5f386a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "3A4nICcn6Qj1g5d4",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 21
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        432,
+        0
+      ],
+      "id": "00337c70-18e3-4d0b-83ae-d9024feb05dc",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e97f9e6b-ffdb-4fd7-aefc-31a578992594",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "37a4a0da038537ba65e1bc29d95b5f30f91f723387112be844b4e347298343c2"
+  },
+  "nodeGroups": [],
+  "id": "9YcTNuAHEduHGekb",
+  "tags": []
+}
