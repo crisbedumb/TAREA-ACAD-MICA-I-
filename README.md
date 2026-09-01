@@ -136,6 +136,8 @@ Se ejecutó el workflow manualmente antes de activarlo, revisando en cada nodo:
 **Docker corriendo:**
 ![docker](Docs/img/docker.png)
 **Workflow:**
+Version 1
+<img width="1920" height="971" alt="Captura de pantalla (2368)" src="https://github.com/user-attachments/assets/18118b54-1058-4dc4-881c-9a50a95dd094" />
 ![workflow](Docs/img/workflow.png)
 **Ejecución exitosa:**
 ![ejecucion](Docs/img/ejecucion.png)
