@@ -141,6 +141,10 @@ Se ejecutó el workflow manualmente antes de activarlo, revisando en cada nodo:
 ![ejecucion](Docs/img/ejecucion.png)
 **Correo recibido:**
 ![correo](Docs/img/correo.png)
+**Commits y Pull Request:**
+![commit](Docs/img/commit.png)
+**Errores**
+![error](Docs/img/error.png)
 
 ---
 
@@ -161,9 +165,9 @@ Se ejecutó el workflow manualmente antes de activarlo, revisando en cada nodo:
 │   └── instalacion.md
 ├── workflows/
 │   ├── Automatizacion_de_Resgistro_y_notificaciones.json 
-    ├── Cambio_ScheduleTrigger.json
-    ├── nueva_versiondeautomatizacion.json
-    ├── workflow_01_trigger.json
+│    ├── Cambio_ScheduleTrigger.json
+│    ├── nueva_versiondeautomatizacion.json
+│    ├── workflow_01_trigger.json
 │   └── workflow_02_procesamiento.json
 ├── .gitignore
 ├── README.md
